@@ -2,6 +2,7 @@
 #include <cstring>
 #include <vector>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -24,9 +25,10 @@ void add(vector<student*>* list){
   cout << "enter an id num " << endl;
   cin >> sptr->idNum;
   cout << "enter a GPA " << endl;
-  double gPAMath;
-  cin >> gPAMath;
-  sptr->gPA = round(100*gPAMath)/100;
+  cin >> sptr->gPA;
+  //double gPAMath;
+  //cin >> gPAMath;
+  //sptr->gPA = round(100*gPAMath)/100;
 
   list->push_back(sptr);
   
@@ -40,7 +42,8 @@ void prt(vector<student*>* list){
     cout << student->firstName << " ";
     cout << student->lastName << ", ";
     cout << student->idNum << ", ";
-    cout << student->gPA << endl;
+    cout << fixed;
+    cout << setprecision(2) << student->gPA << endl;
   }
   cout << endl;
   return;
@@ -48,24 +51,17 @@ void prt(vector<student*>* list){
 
 
 void del(vector<student*>* list){
-  char tbdel[20];
+  long tbdel;
   cout << "Who would you like to delete?" << endl;
   cin >> tbdel;
   vector<student*>::iterator it;
   for(it = list->begin(); it != list->end(); ++it) {
     // cout << (*it)->firstName << endl;
-    if(!strcmp((*it)->firstName,tbdel)){
+    if((*it)->idNum == tbdel){
       list->erase(it);
       --it;
     }
   }
-
-  /*for(student* student : *list) { //this for each loop breaks
-    if(!strcmp(student->firstName,tbdel)){
-
-    }
-    }*/
-    
   cout << endl;
   return;  
 }
